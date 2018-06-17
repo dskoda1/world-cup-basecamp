@@ -15,6 +15,8 @@ import Divider from '@material-ui/core/Divider';
 const styles = theme => ({
   root: {
     width: '100%',
+    textAlign: 'left',
+
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -29,7 +31,7 @@ const styles = theme => ({
     width: 20,
   },
   details: {
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   column: {
     flexBasis: '33.33%',
@@ -65,10 +67,7 @@ function MatchAccordion(props) {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <div className={classes.column}>
-            <Typography className={classes.heading}>{home_team.country} vs {away_team.country} - {home_team.goals}:{away_team.goals}</Typography>
-          </div>
-          <div className={classes.column}>
-            <Typography className={classes.secondaryHeading}>Select trip destination</Typography>
+            <Typography className={classes.heading}>{home_team.country} vs {away_team.country} - {home_team.goals}:{away_team.goals} {time}</Typography>
           </div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.details}>

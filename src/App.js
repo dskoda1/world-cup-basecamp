@@ -11,13 +11,7 @@ import { Match, MatchAccordion } from './matches';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    textAlign: 'center',
     padding: theme.spacing.unit * 2,
-  },
-  paper: {
-    padding: theme.spacing.unit * 2,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
   },
 });
 
