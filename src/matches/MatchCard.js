@@ -4,12 +4,12 @@ import Button from '@material-ui/core/Button';
 
 import PropTypes from 'prop-types';
 
-class Match extends Component {
-
+class MatchCard extends Component {
+    
     constructor(props) {
         super()
     }
-
+    
     render() {
         return (
             <div>
@@ -35,4 +35,4 @@ Match.propTypes = {
 };
 
 
-export default Match;
+export default MatchCard;
