@@ -54,7 +54,6 @@ class App extends Component {
     }
     return (
       <div>
-        
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -63,10 +62,10 @@ class App extends Component {
           <div className={classes.root}>
             <Grid container spacing={24}>
               <Grid item xs={12} sm={9} md={6}>
-              <p className="App-intro">
+                <div className="App-intro">
                     {component}
                     {matchesComponent}
-                  </p>
+                </div>
               </Grid>
             </Grid>
           </div>

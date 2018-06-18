@@ -26,8 +26,10 @@ function MatchCard(props) {
     datetime
   } = props;
   
+  console.log(time)
+  let timeComponent = time != null ? <div>{time}</div> : <Moment date={datetime} format="MM/DD @ HH:mm" />;
+  
   return (
-     <div>
       <Paper className={classes.root} elevation={4}>
         <Typography variant="headline" component="h3">
             {home_team.code}
@@ -37,10 +39,9 @@ function MatchCard(props) {
             &nbsp;{away_team.code}
         </Typography>
         <Typography component="div">
-          <Moment date={datetime} format="MM/DD @ HH:mm" />
+          {timeComponent}
         </Typography>
       </Paper>
-    </div>
   );
 }
 
@@ -59,7 +60,7 @@ MatchCard.propTypes = {
     venue: PropTypes.string,
     location: PropTypes.string,
     status: PropTypes.string,
-    time: PropTypes.string.isRequired,
+    time: PropTypes.string,
     fifa_id: PropTypes.string,
     datetime: PropTypes.string,
     last_event_update_at: PropTypes.string,
