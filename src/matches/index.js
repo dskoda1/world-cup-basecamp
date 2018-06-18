@@ -1,7 +1,7 @@
 import Match from './Match';
-import MatchAccordion from './MatchAccordion';
+import MatchCard from './MatchCard';
 
 export {
     Match,
-    MatchAccordion
+    MatchCard
 };
