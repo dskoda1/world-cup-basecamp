@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-
-import Button from '@material-ui/core/Button';
-
 import PropTypes from 'prop-types';
 
-class Match extends Component {
 
+class Match extends Component {
     constructor(props) {
         super()
     }
