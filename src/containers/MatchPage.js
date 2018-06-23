@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 
-class Match extends Component {
+class MatchPage extends Component {
     constructor(props) {
         super()
     }
@@ -10,13 +10,13 @@ class Match extends Component {
     render() {
         return (
             <div>
-                Match          
+                Match {this.props.fifa_id}       
             </div>
         )
     }
 }
 
-Match.propTypes = {
+MatchPage.propTypes = {
     home_team: PropTypes.object,
     away_team: PropTypes.object,
     home_team_events: PropTypes.array,
@@ -28,8 +28,7 @@ Match.propTypes = {
     datetime: PropTypes.string,
     last_event_update_at: PropTypes.string,
     last_score_update_at: PropTypes.string,
-
 };
 
 
-export default Match;
+export default MatchPage;

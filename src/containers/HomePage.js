@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import { getMatches, getTodaysMatches } from '../redux/actions';
 import { MatchList } from '../components/matches';
-import {GET_MATCHES, GET_TODAYS_MATCHES} from '../redux/constants';
 
 
 const MATCH_SELECT_OPTIONS = {
@@ -75,17 +76,31 @@ class HomePage extends Component {
     }
 }
 
-const mapStateToProps = ( {reducer, todaysMatches} ) => {
+const mapStateToProps = ( {matches, todaysMatches} ) => {
     return {
-        matches: reducer,
+        matches,
         todaysMatches,
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getMatches: () => dispatch({type: GET_MATCHES}),
-        getTodaysMatches: () => dispatch({type: GET_TODAYS_MATCHES})
-    }
+const mapDispatchToProps = {
+    getMatches,
+    getTodaysMatches
 }
+
+HomePage.propTypes = {
+    getMatches: PropTypes.func.isRequired,
+    getTodaysMatches: PropTypes.func.isRequired,
+    matches: PropTypes.shape({
+        matches: PropTypes.array.isRequired,
+        fetching: PropTypes.bool.isRequired,
+        error: PropTypes.object,
+    }).isRequired,
+    todaysMatches: PropTypes.shape({
+        matches: PropTypes.array.isRequired,
+        fetching: PropTypes.bool.isRequired,
+        error: PropTypes.object,
+    }).isRequired,
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

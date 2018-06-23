@@ -1,7 +1,10 @@
+// @flow
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
+import { Link } from 'react-router-dom';
 
 import MatchCard from './MatchCard';
 
@@ -28,11 +31,13 @@ class MatchList extends Component {
     }
     
     if (error) {
-      return (<div>An error has occurred. Please try again never.</div>);
+      return (<div>An error has occurred. Please try again never. {error}</div>);
     }
     
     let matchesComponent = matches.map((match) => (
-         <MatchCard key={match.fifa_id} {...match} />
+         <Link key={match.fifa_id} to={`/matches/${match.fifa_id}`} style={{ textDecoration: 'none' }}>
+          <MatchCard {...match} />
+         </Link>
     ));
     
     let component = matchesComponent.length ? 
@@ -51,6 +56,7 @@ MatchList.propTypes = {
   classes: PropTypes.object.isRequired,
   matches: PropTypes.array.isRequired,
   error: PropTypes.string,
+  fetching: PropTypes.bool.isRequired,
 }
 
 export default withStyles(styles)(MatchList);

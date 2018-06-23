@@ -8,7 +8,7 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './header'
 import NotFound from './components/NotFound';
 import HomePage from './containers/HomePage';
-
+import MatchPage from './containers/MatchPage';
 
 const styles = theme => ({
   root: {
@@ -24,7 +24,8 @@ const App = ({classes}) => (
     <div className={classes.root}>
       <Grid container spacing={24}>
         <Switch>
-          <Route component={HomePage} path='/' />
+          <Route exact component={HomePage} path='/' />
+          <Route exact component={MatchPage} path = '/matches/:fifa_id' />
           <Route path='*' component={NotFound} />
         </Switch>
       </Grid>

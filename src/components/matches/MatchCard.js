@@ -46,12 +46,12 @@ MatchCard.propTypes = {
     home_team: PropTypes.shape({
       code: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
-      goals: PropTypes.number.isRequired,
+      goals: PropTypes.number,
     }).isRequired,
     away_team: PropTypes.shape({
       code: PropTypes.string.isRequired,
       country: PropTypes.string.isRequired,
-      goals: PropTypes.number.isRequired,
+      goals: PropTypes.number,
     }).isRequired,
     venue: PropTypes.string,
     location: PropTypes.string,
