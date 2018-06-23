@@ -1,14 +1,14 @@
 // @flow
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
 
+import type { Match } from '../../types';
 import MatchCard from './MatchCard';
 
-const styles = theme => ({
+const styles = (theme: { spacing: { unit: number }}) => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing.unit * 2,
@@ -16,7 +16,14 @@ const styles = theme => ({
   },
 });
 
-class MatchList extends Component {
+type Props = {
+    matches: Array<Match>,
+    classes: { root: string },
+    error: ?string,
+    fetching: boolean,
+};
+
+class MatchList extends Component<Props> {
   
   render() {
     let {
@@ -36,7 +43,7 @@ class MatchList extends Component {
     
     let matchesComponent = matches.map((match) => (
          <Link key={match.fifa_id} to={`/matches/${match.fifa_id}`} style={{ textDecoration: 'none' }}>
-          <MatchCard {...match} />
+          <MatchCard match={match} />
          </Link>
     ));
     
@@ -52,12 +59,6 @@ class MatchList extends Component {
   }
 }
 
-MatchList.propTypes = {
-  classes: PropTypes.object.isRequired,
-  matches: PropTypes.array.isRequired,
-  error: PropTypes.string,
-  fetching: PropTypes.bool.isRequired,
-}
 
 export default withStyles(styles)(MatchList);
 
