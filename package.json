@@ -26,7 +26,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow check",
+    "flow-watch": "fswatch -o ./ | xargs -n1 -I{} sh -c 'clear; printf \"\\033[3J\" && flow'"
   },
   "devDependencies": {
     "flow-bin": "^0.75.0"
