@@ -1,6 +1,6 @@
+// @flow
 import React, { Component } from 'react';
 
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -8,6 +8,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { getMatches, getTodaysMatches } from '../redux/actions';
 import { MatchList } from '../components/matches';
 
+import type { MatchReducerState } from '../types/reducers/index';
+
+type Props = {
+    getMatches: Function,
+    getTodaysMatches: Function,
+    matches: MatchReducerState,
+    todaysMatches: MatchReducerState,
+};
+type State = {
+    matchSelection: string,
+};
 
 const MATCH_SELECT_OPTIONS = {
     TODAYS: 'today',
@@ -18,7 +29,7 @@ const initialState = {
     matchSelection: MATCH_SELECT_OPTIONS.TODAYS
 }
 
-class HomePage extends Component {
+class HomePage extends Component<Props, State> {
     constructor() {
         super()
         this.state = initialState;
@@ -34,7 +45,6 @@ class HomePage extends Component {
     };
     
     render() {
-        
         const { matchSelection } = this.state;
         const { 
             todaysMatches,
@@ -76,7 +86,12 @@ class HomePage extends Component {
     }
 }
 
-const mapStateToProps = ( {matches, todaysMatches} ) => {
+type RootReducer = {
+    matches: MatchReducerState,
+    todaysMatches: MatchReducerState,
+}
+
+const mapStateToProps = ( {matches, todaysMatches}: RootReducer ) => {
     return {
         matches,
         todaysMatches,
@@ -86,21 +101,6 @@ const mapStateToProps = ( {matches, todaysMatches} ) => {
 const mapDispatchToProps = {
     getMatches,
     getTodaysMatches
-}
-
-HomePage.propTypes = {
-    getMatches: PropTypes.func.isRequired,
-    getTodaysMatches: PropTypes.func.isRequired,
-    matches: PropTypes.shape({
-        matches: PropTypes.array.isRequired,
-        fetching: PropTypes.bool.isRequired,
-        error: PropTypes.object,
-    }).isRequired,
-    todaysMatches: PropTypes.shape({
-        matches: PropTypes.array.isRequired,
-        fetching: PropTypes.bool.isRequired,
-        error: PropTypes.object,
-    }).isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -1,9 +1,12 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Moment from 'react-moment';
+
+import type { Team } from '../../types/matches';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -13,8 +16,18 @@ const styles = theme => ({
   }),
 });
 
-const MatchCard = (props) => {
+type Props = {
+  classes: {
+    root: string
+  },
+  home_team: Team,
+  away_team: Team,
+  time: string,
+  datetime: string
+};
 
+
+const MatchCard = (props: Props) => {
   const { 
     classes,
     home_team,
@@ -40,27 +53,5 @@ const MatchCard = (props) => {
       </Paper>
   );
 }
-
-MatchCard.propTypes = {
-    classes: PropTypes.object.isRequired,
-    home_team: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-      goals: PropTypes.number,
-    }).isRequired,
-    away_team: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
-      goals: PropTypes.number,
-    }).isRequired,
-    venue: PropTypes.string,
-    location: PropTypes.string,
-    status: PropTypes.string,
-    time: PropTypes.string,
-    fifa_id: PropTypes.string,
-    datetime: PropTypes.string,
-    last_event_update_at: PropTypes.string,
-    last_score_update_at: PropTypes.string,
-};
 
 export default withStyles(styles)(MatchCard);

@@ -1,7 +1,8 @@
-// action types
-import { GET_TODAYS_MATCHES, GET_TODAYS_MATCHES_FAILURE, GET_TODAYS_MATCHES_SUCCESS } from '../constants';
+// @flow
 
-// reducer with initial state
+import { GET_TODAYS_MATCHES, GET_TODAYS_MATCHES_FAILURE, GET_TODAYS_MATCHES_SUCCESS } from '../constants';
+import type { MatchReducerState, MatchReducerAction } from '../../types/reducers/';
+
 const initialState = {
   fetching: false,
   matches: [],
@@ -9,7 +10,11 @@ const initialState = {
 };
 
 
-export default (state = initialState, {type, matches, error})  => {
+export default (
+  state: MatchReducerState = initialState, 
+  { type, error, matches }: MatchReducerAction,
+) : MatchReducerState => {
+
   switch (type) {
     case GET_TODAYS_MATCHES:
       return { ...state, fetching: true, error: null };

@@ -1,12 +1,11 @@
 // @flow
-
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import { Link } from 'react-router-dom';
 
 import MatchCard from './MatchCard';
+import type { Match } from '../../types/matches';
 
 const styles = theme => ({
   root: {
@@ -16,7 +15,16 @@ const styles = theme => ({
   },
 });
 
-class MatchList extends Component {
+type Props = {
+  classes: {
+    root: string
+  },
+  matches: Array<Match>,
+  fetching: boolean,
+  error?: string,
+};
+
+class MatchList extends Component<Props> {
   
   render() {
     let {
@@ -52,12 +60,4 @@ class MatchList extends Component {
   }
 }
 
-MatchList.propTypes = {
-  classes: PropTypes.object.isRequired,
-  matches: PropTypes.array.isRequired,
-  error: PropTypes.string,
-  fetching: PropTypes.bool.isRequired,
-}
-
 export default withStyles(styles)(MatchList);
-

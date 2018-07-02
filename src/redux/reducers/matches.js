@@ -1,4 +1,7 @@
+// @flow
+
 import { GET_MATCHES, GET_MATCHES_FAILURE, GET_MATCHES_SUCCESS } from '../constants';
+import type { MatchReducerState, MatchReducerAction } from '../../types/reducers/';
 
 const initialState = {
   fetching: false,
@@ -6,7 +9,11 @@ const initialState = {
   error: null
 };
 
-export default (state = initialState, {type, matches, error})  => {
+export default (
+  state: MatchReducerState = initialState, 
+  { type, error, matches }: MatchReducerAction,
+) : MatchReducerState => {
+
   switch (type) {
     case GET_MATCHES:
       return { ...state, fetching: true, error: null };

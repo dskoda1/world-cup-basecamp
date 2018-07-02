@@ -1,34 +1,78 @@
+// @flow
+
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { getMatches } from '../redux/actions';
+import MatchHeader from '../components/matchPage/MatchHeader';
+import type { MatchReducerState } from '../types/reducers/index';
 
-class MatchPage extends Component {
-    constructor(props) {
-        super()
+type Props = {
+    getMatches: Function,
+    matches: MatchReducerState,
+    fifa_id: string,
+};
+
+class MatchPage extends Component<Props> {
+    componentWillMount() {
+        this.props.getMatches();
     }
 
     render() {
+
+        const {
+            matches: {
+                fetching,
+                matches,
+                error,
+            },
+            fifa_id
+        } = this.props
+
+        let child = '';
+        if (error) {
+            child = `There was an error. go away ${error}`;
+        }
+        else if (fetching) {
+            child = 'Loading..';
+        }
+        else if (matches){
+            let match = matches.find((match) => match.fifa_id === fifa_id);
+            if (match) {
+                child = <MatchHeader match={match} />
+            }
+            else {
+                child = `Match ${fifa_id} not found.`;
+            }
+        }
+
         return (
             <div>
-                Match {this.props.fifa_id}       
+                {child}    
             </div>
         )
     }
 }
 
-MatchPage.propTypes = {
-    home_team: PropTypes.object,
-    away_team: PropTypes.object,
-    home_team_events: PropTypes.array,
-    away_team_events: PropTypes.array,
-    venue: PropTypes.string,
-    location: PropTypes.string,
-    status: PropTypes.string,
-    fifa_id: PropTypes.string,
-    datetime: PropTypes.string,
-    last_event_update_at: PropTypes.string,
-    last_score_update_at: PropTypes.string,
+type RootReducer = {
+    matches: MatchReducerState
+}
+type Context = {
+    match: {
+        params: {
+            fifa_id: string,
+        },
+    },
 };
 
+const mapStateToProps = ( state: RootReducer, context: Context ) => {
+    return {
+        matches: state.matches,
+        fifa_id: context.match.params.fifa_id
+    }
+}
+const mapDispatchToProps = {
+    getMatches
+}
 
-export default MatchPage;
+export default connect(mapStateToProps, mapDispatchToProps)(MatchPage);
