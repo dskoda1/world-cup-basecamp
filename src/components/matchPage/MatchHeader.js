@@ -1,14 +1,12 @@
 // @flow
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import { Link } from 'react-router-dom';
-
-import type { Match, Team } from '../../types/matches';
+import type { Match } from '../../types/matches';
 
 type Props = {
     match: Match,
@@ -19,9 +17,9 @@ type Props = {
     },
 };
 
-const TeamHeader = () => (
-    <div> Hello </div>
-);
+// const TeamHeader = () => (
+//     <div> Hello </div>
+// );
 
 const styles = theme => ({
     root: {
