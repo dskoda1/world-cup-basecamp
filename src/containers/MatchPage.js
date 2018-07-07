@@ -2,17 +2,32 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core/styles';
+
 
 import { getMatches } from '../redux/actions';
 
 import { MatchCard } from '../components/matches';
 import MatchBody from '../components/matchPage/MatchBody';
+import AutoRefresh from '../components/AutoRefresh';
 import type { MatchReducerState } from '../types/reducers/index';
+
+const styles = theme => ({
+    progress: {
+      margin: theme.spacing.unit * 2,
+    },
+});
 
 type Props = {
     getMatches: Function,
     matches: MatchReducerState,
     fifa_id: string,
+    classes: {
+        progress: {
+            margin: string
+        },
+    },
 };
 
 class MatchPage extends Component<Props> {
@@ -20,25 +35,26 @@ class MatchPage extends Component<Props> {
         this.props.getMatches();
     }
 
-    render() {
+    reload() {
+        this.props.getMatches();
+    }
 
+    render() {
         const {
             matches: {
                 fetching,
                 matches,
                 error,
             },
-            fifa_id
+            fifa_id,
+            classes
         } = this.props
 
         let child = '';
         if (error) {
             child = `There was an error. go away ${error}`;
         }
-        else if (fetching) {
-            child = 'Loading..';
-        }
-        else if (matches){
+        else if (matches && !fetching){
             let match = matches.find((match) => match.fifa_id === fifa_id);
             if (match) {
                 child = (
@@ -56,6 +72,7 @@ class MatchPage extends Component<Props> {
 
         return (
             <div>
+                <AutoRefresh onRefresh={this.reload.bind(this)}/> {fetching ? <CircularProgress className={classes.Progress} />: null }
                 {child}    
             </div>
         )
@@ -83,4 +100,4 @@ const mapDispatchToProps = {
     getMatches
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatchPage);
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(MatchPage));
