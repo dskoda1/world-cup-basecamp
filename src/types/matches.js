@@ -24,6 +24,14 @@ export type Event = {
     type_of_event: string,
 };
 
+export type Weather = {
+    humidity: string,
+    temp_celsius: string,
+    temp_farenheit: string,
+    wind_speed: string,
+    description: string,
+}
+
 export type Match = {
     home_team: Team,
     away_team: Team,
@@ -42,5 +50,7 @@ export type Match = {
     fifa_id: string,
     winner?: string,
     winner_code?: string,
-    stage_name: string
+    stage_name: string,
+    weather: Weather,
+    officials: Array<string>,
 };

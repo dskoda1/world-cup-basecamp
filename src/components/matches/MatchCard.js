@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -23,7 +23,8 @@ type Props = {
   home_team: Team,
   away_team: Team,
   time: string,
-  datetime: string
+  datetime: string,
+  additionalComponent?: React.Node
 };
 
 
@@ -33,7 +34,8 @@ const MatchCard = (props: Props) => {
     home_team,
     away_team,
     time,
-    datetime
+    datetime,
+    additionalComponent,
   } = props;
   
   let timeComponent = time != null ? <div>{time}</div> : <Moment date={datetime} format="MM/DD @ HH:mm" />;
@@ -50,6 +52,8 @@ const MatchCard = (props: Props) => {
         <Typography component="div">
           {timeComponent}
         </Typography>
+        <br />
+        {additionalComponent}
       </Paper>
   );
 }

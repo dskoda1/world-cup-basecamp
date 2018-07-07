@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 
-// import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
@@ -13,6 +12,7 @@ type Props = {
 type State = {
     shouldRefresh: bool,
     seconds: number,
+    interval?: any,
 }
 
 const initialState : State = {
@@ -21,8 +21,8 @@ const initialState : State = {
 };
 
 class AutoRefresh extends Component<Props, State> {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = initialState;
     };
 
@@ -38,11 +38,13 @@ class AutoRefresh extends Component<Props, State> {
     }
 
     setRefreshTimer () {
-        this.interval = setInterval(() => this.tick(), 1000);
+        this.setState({
+            interval: setInterval(() => this.tick(), 1000)
+        })
     }
 
     clearRefreshTimer() {
-        clearInterval(this.interval);
+        clearInterval(this.state.interval);
         this.setState({seconds: 0});
     }
 
@@ -50,7 +52,7 @@ class AutoRefresh extends Component<Props, State> {
         this.clearRefreshTimer();
     }
 
-    handleChange = event => {
+    handleChange = (event: {target: {checked: boolean}}) => {
         this.setState({shouldRefresh: event.target.checked});
         if (event.target.checked) {
             this.setRefreshTimer();

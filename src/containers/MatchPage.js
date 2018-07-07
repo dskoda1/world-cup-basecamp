@@ -10,6 +10,7 @@ import { getMatches } from '../redux/actions';
 
 import { MatchCard } from '../components/matches';
 import MatchBody from '../components/matchPage/MatchBody';
+import MatchDetails from '../components/matchPage/MatchDetails';
 import AutoRefresh from '../components/AutoRefresh';
 import type { MatchReducerState } from '../types/reducers/index';
 
@@ -24,7 +25,7 @@ type Props = {
     matches: MatchReducerState,
     fifa_id: string,
     classes: {
-        progress: {
+        Progress: {
             margin: string
         },
     },
@@ -59,7 +60,10 @@ class MatchPage extends Component<Props> {
             if (match) {
                 child = (
                     <div>
-                        <MatchCard {...match} />
+                        <MatchCard 
+                            {...match}
+                            additionalComponent={<MatchDetails match={match} />}
+                             />
                         <br />
                         <MatchBody match={match} />
                     </div>
