@@ -22,7 +22,7 @@ const App = ({classes}) => (
   <div>
     <Header />
     <div className={classes.root}>
-      <Grid container spacing={24}>
+      <Grid container spacing={12} direction="column">
         <Switch>
           <Route exact component={HomePage} path='/' />
           <Route exact component={MatchPage} path = '/matches/:fifa_id' />

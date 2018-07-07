@@ -4,7 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { getMatches } from '../redux/actions';
-import MatchHeader from '../components/matchPage/MatchHeader';
+
+import { MatchCard } from '../components/matches';
+import MatchBody from '../components/matchPage/MatchBody';
 import type { MatchReducerState } from '../types/reducers/index';
 
 type Props = {
@@ -39,7 +41,13 @@ class MatchPage extends Component<Props> {
         else if (matches){
             let match = matches.find((match) => match.fifa_id === fifa_id);
             if (match) {
-                child = <MatchHeader match={match} />
+                child = (
+                    <div>
+                        <MatchCard {...match} />
+                        <br />
+                        <MatchBody match={match} />
+                    </div>
+                )
             }
             else {
                 child = `Match ${fifa_id} not found.`;
