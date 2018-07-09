@@ -29,9 +29,12 @@ type TeamEventProps = {
 }
 
 const TeamEvents = (props: TeamEventProps) => {
+
+    const events = props.events || [];
+
     return (
         <div>
-            {props.events.reverse().map((event) => {
+            {events.reverse().map((event) => {
                 return (
                     <div key={event.time + event.player}>{event.time} - {event.player} - {event.type_of_event}</div>
                 )
