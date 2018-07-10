@@ -6,20 +6,20 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import StarIcon from '@material-ui/icons/Star';
 
-import ResponsiveDrawer from './ResponsiveDrawer';
+import Navigation from './TempDrawerNav';
 
 type Props = {
   children: React.Node
 };
 
 const NavBar = (props: Props) => (
-  <ResponsiveDrawer 
+  <Navigation 
       drawerItems={
         <ListItem button>
           <ListItemIcon>
             <StarIcon />
           </ListItemIcon>
-          <ListItemText primary="Starred" />
+          <ListItemText primary="Matches" />
         </ListItem>
       }
       children={props.children}

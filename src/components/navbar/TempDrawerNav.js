@@ -2,13 +2,12 @@
 
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 
@@ -17,7 +16,6 @@ const drawerWidth = 240;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -25,24 +23,10 @@ const styles = theme => ({
     width: '100%',
   },
   appBar: {
-    position: 'absolute',
+    position: 'fixed',
     marginLeft: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
-  },
-  navIconHide: {
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
   },
   toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      position: 'relative',
-    },
-  },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -54,27 +38,27 @@ type Props = {
     drawerItems: React.Node,
     children: React.Node,
     appTitle: string,
-    theme: any,
     classes: any,
 };
 
 type State = {
-    mobileOpen: boolean,
+    open: boolean,
 };
 
-class ResponsiveDrawer extends React.Component<Props, State> {
+class TempDrawerNav extends React.Component<Props, State> {
   state = {
-    mobileOpen: false,
+    open: false
   };
 
-  handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-  };
+  toggleDrawer = (open) => () => {
+      this.setState({
+          open
+      });
+  }
 
   render() {
     const { 
         classes, 
-        theme,
         drawerItems,
         children,
         appTitle
@@ -98,8 +82,7 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.navIconHide}
+              onClick={this.toggleDrawer(true)}
             >
               <MenuIcon />
             </IconButton>
@@ -108,33 +91,20 @@ class ResponsiveDrawer extends React.Component<Props, State> {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
+        <SwipeableDrawer
+          open={this.state.open}
+          onClose={this.toggleDrawer(false)}
+          onOpen={this.toggleDrawer(true)}
+        >
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer(false)}
+            onKeyDown={this.toggleDrawer(false)}
           >
             {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
+          </div>
+        </SwipeableDrawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
           {children}
@@ -144,4 +114,4 @@ class ResponsiveDrawer extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default withStyles(styles, { withTheme: true })(TempDrawerNav);
